@@ -6,9 +6,10 @@ LABEL maintainer="ximon.eighteen@gmail.com"
 ARG UNBOUND_VERSION=1.9.0
 
 RUN apt-get update && \
-apt-get -y upgrade && \
-apt-get -y install \
+apt-get upgrade -y && \
+apt-get install --no-install-recommends -y \
 	build-essential \
+	ca-certificates \
 	dnsutils \
 	libevent-dev \
 	libpython3.6 \
@@ -19,7 +20,8 @@ apt-get -y install \
 	rsyslog \
 	swig \
 	vim \
-	wget
+	wget && \
+	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
 RUN wget "https://www.nlnetlabs.nl/downloads/unbound/unbound-${UNBOUND_VERSION}.tar.gz" && \
@@ -30,7 +32,17 @@ RUN wget "https://www.nlnetlabs.nl/downloads/unbound/unbound-${UNBOUND_VERSION}.
 	make && \
 	make install && \
 	useradd unbound && \
-	chown -R unbound: /usr/local/etc/unbound/
+	chown -R unbound: /usr/local/etc/unbound/ && \
+	cd /opt && \
+	rm -Rf /opt/unbound*
+
+RUN apt-get purge -y build-essential \
+	ca-certificates \
+	libevent-dev \
+	libpython3.6-dev \
+	libssl-dev \
+	swig \
+	wget
 
 WORKDIR /usr/local/etc/unbound
 RUN mv unbound.conf unbound.conf.org
