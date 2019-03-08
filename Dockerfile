@@ -1,8 +1,8 @@
 # This Dockerfile builds Unbound 1.9.0 --with-pythonmodule support and includes a simple Hello World style Python
 # module to demonstrate the --with-pythonmodule functionality.
 # See: https://unbound.net/
-LABEL maintainer="ximon.eighteen@gmail.com"
 FROM ubuntu:18.04
+LABEL maintainer="ximon.eighteen@gmail.com"
 ARG UNBOUND_VERSION=1.9.0
 
 RUN apt-get update && \
