@@ -1,5 +1,5 @@
 # pythonunbound
-A simple Dockerfile that builds Unbound (1.9.0 at the time of writing) `--with-pythonmodule` support and includes a simple Hello World style Python # module to demonstrate the `--with-pythonmodule` functionality.
+A simple Dockerfile that builds Unbound (1.9.0 at the time of writing) `--with-pythonmodule` support and includes a simple Hello World style Python # module to demonstrate the `--with-pythonmodule` functionality using Python 3.6.
 
 # Hello World
 ```
@@ -23,3 +23,13 @@ docker exec -it <container id> /bin/bash
 root@nnn:/usr/local/etc/unbound#: dig +noall +answer @127.0.0.1
 helloworld.  300 IN A 127.0.0.1
 ```
+
+# Building a different version of Unbound
+Rather than use the [stock version](https://cloud.docker.com/u/nlnetlabs/repository/docker/nlnetlabs/pythonunbound) of the image hosted at Docker Hub, you can rebuild the image yourself against any `unbound-X.Y.Z.tar.gz` available at https://nlnetlabs.nl/downloads/unbound/ by specifying the `UNBOUND_VERSION` build argument to the `docker build` command.
+
+For example, to build the image using Unbound 1.8.0:
+
+1. Clone this repository and CD into the clone directory.
+2. Build the image: `docker build --bulld-arg UNBOUND_VERSION=1.8.0 .`
+
+END
