@@ -1,4 +1,4 @@
-# This Dockerfile builds Unbound 1.9.0 --with-pythonmodule support and includes a simple Hello World style Python
+# This Dockerfile builds Unbound --with-pythonmodule support and includes a simple Hello World style Python
 # module to demonstrate the --with-pythonmodule functionality.
 # See: https://unbound.net/
 FROM ubuntu:18.04
