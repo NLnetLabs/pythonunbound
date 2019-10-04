@@ -3,7 +3,7 @@
 # See: https://unbound.net/
 FROM ubuntu:18.04
 LABEL maintainer="ximon.eighteen@gmail.com"
-ARG UNBOUND_VERSION=1.9.1
+ARG UNBOUND_VERSION=1.9.4
 
 RUN apt-get update && \
 apt-get upgrade -y && \
