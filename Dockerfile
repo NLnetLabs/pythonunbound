@@ -2,7 +2,6 @@
 # module to demonstrate the --with-pythonmodule functionality.
 # See: https://unbound.net/
 FROM ubuntu:18.04
-LABEL maintainer="ximon.eighteen@gmail.com"
 ARG UNBOUND_VERSION=1.9.4
 
 RUN apt-get update && \
