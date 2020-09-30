@@ -1,0 +1,78 @@
+#What is the difference between the following class methods?
+
+#Is it that one is static and the other is not?
+
+class Test(object):
+
+def method_one(self):
+
+print "Called method_one"
+
+def method_two():
+
+print "Called method_two"
+
+a_test = Test() 
+
+a_test.method_one() 
+
+a_test.method_two()
+
+
+
+'''
+There is a difference between bound and unbound methods in Python.
+
+Basically, a call to a member function (like method_one), a bound function
+
+a_test.method_one()
+
+is translated to
+'''
+
+Test.method_one(a_test)
+
+i.e. a call to an unbound method. Because of that, a call to your version of method_two will fail with a TypeError
+
+>>> a_test = Test() 
+
+>>> a_test.method_two() 
+
+Traceback (most recent call last): 
+
+  File "<stdin>", line 1, in <module> 
+
+TypeError: method_two() takes no arguments (1 given)
+
+You can change the behaviour of a method using a decorator
+
+class Test(object):
+
+def method_one(self):
+
+print "Called method_one" 
+
+@staticmethod 
+
+def method_two():
+
+print "Called method two"
+'''
+The decorator tells the built-in default metaclass type (the class of a class, cf. this question) to not create bound methods for method_two.
+
+Now, you can invoke static method both on an instance or on the class directly:
+'''
+
+>>> a_test = Test() 
+
+>>> a_test.method_one() 
+
+Called method_one 
+
+>>> a_test.method_two() 
+
+Called method_two 
+
+>>> Test.method_two() 
+
+Called method_two
