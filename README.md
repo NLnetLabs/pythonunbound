@@ -30,6 +30,6 @@ Rather than use the [stock version](https://cloud.docker.com/u/nlnetlabs/reposit
 For example, to build the image using Unbound 1.8.0:
 
 1. Clone this repository and CD into the clone directory.
-2. Build the image: `docker build --bulld-arg UNBOUND_VERSION=1.8.0 .`
+2. Build the image: `docker build --build-arg UNBOUND_VERSION=1.8.0 .`
 
 END
