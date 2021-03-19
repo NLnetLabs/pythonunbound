@@ -2,7 +2,7 @@
 # module to demonstrate the --with-pythonmodule functionality.
 # See: https://unbound.net/
 FROM ubuntu:18.04
-ARG UNBOUND_VERSION=1.9.4
+ARG UNBOUND_VERSION=1.13.1
 
 RUN apt-get update && \
 apt-get upgrade -y && \
