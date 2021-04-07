@@ -45,40 +45,8 @@ RUN apt-get purge -y build-essential \
 
 WORKDIR /usr/local/etc/unbound
 RUN mv unbound.conf unbound.conf.org
-RUN printf "\
-server:\n\
-	chroot: \"\"\n\
-	module-config: \"python\"\n\
-	do-ip6: no\n\
-\n\
-python:\n\
-	python-script: \"/usr/local/etc/unbound/helloworld.py\"\n\
-" > unbound.conf
-
-RUN printf "\
-def init_standard(id, env):\n\
-	return True\n\
-\n\
-def deinit(id):\n\
-	return True\n\
-\n\
-def inform_super(id, qstate, superqstate, qdata):\n\
-	return True\n\
-\n\
-def operate(id, event, qstate, qdata):\n\
-	if event == MODULE_EVENT_NEW or event == MODULE_EVENT_PASS:\n\
-		msg = DNSMessage(qstate.qinfo.qname_str, qstate.qinfo.qtype, qstate.qinfo.qclass, PKT_QR | PKT_AA)\n\
-		msg.answer.append(\"helloworld. 300 IN A 127.0.0.1\")\n\
-		msg.set_return_msg(qstate)\n\
-		qstate.return_rcode = RCODE_NOERROR\n\
-		qstate.return_msg.rep.security = 2\n\
-		qstate.ext_state[id] = MODULE_FINISHED\n\ 
-	elif event == MODULE_EVENT_MODDONE:\n\
-		qstate.ext_state[id] = MODULE_FINISHED\n\
-	else:\n\
-		qstate.ext_state[id] = MODULE_ERROR\n\
-	return True\n\
-" > helloworld.py
+COPY unbound.conf ./
+COPY helloworld.py ./
 
 # Ready! Once in a Bash shell you can do 'unbound' then 'dig +noall +answer @127.0.0.1' to see the output of the
 # Hello World Python module:
